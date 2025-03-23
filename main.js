@@ -2,7 +2,11 @@ const fs = require("fs");
 const path = require("path");
 const GitClient = require("./git/Client");
 
-const { CatFileCommand, HashObjectCommand } = require("./git/commands");
+const {
+  CatFileCommand,
+  HashObjectCommand,
+  AddCommand,
+} = require("./git/commands");
 
 const gitClient = new GitClient();
 
@@ -17,6 +21,9 @@ switch (command) {
     break;
   case "hash-object":
     handleHashObjectCommand();
+    break;
+  case "add":
+    handleAddCommand();
     break;
   default:
     throw new Error(`Unknown command ${command}`);
@@ -37,22 +44,33 @@ function createGitDirectory() {
 }
 
 function handleCatFileCommand() {
-    const flag = process.argv[3];
-    const commitSHA = process.argv[4];
+  const flag = process.argv[3];
+  const commitSHA = process.argv[4];
 
-    const command = new CatFileCommand(flag, commitSHA);
-    gitClient.run(command)
+  const command = new CatFileCommand(flag, commitSHA);
+  gitClient.run(command);
 }
 
 function handleHashObjectCommand() {
-    let flag = process.argv[3];
-    let filePath = process.argv[4];
+  let flag = process.argv[3];
+  let filePath = process.argv[4];
 
-    if(!filePath){
-      filePath = flag;
-      flag = null;
-    }
+  if (!filePath) {
+    filePath = flag;
+    flag = null;
+  }
 
-    const command = new HashObjectCommand(flag, filePath);
-    gitClient.run(command);
+  const command = new HashObjectCommand(flag, filePath);
+  gitClient.run(command);
+}
+
+function handleAddCommand() {
+  const filePaths = process.argv.slice(3);
+
+  if (filePaths.length === 0) {
+    throw new Error("Nothing specified, nothing added.");
+  }
+
+  const command = new AddCommand(filePaths);
+  gitClient.run(command);
 }
