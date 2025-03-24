@@ -6,6 +6,7 @@ const {
   CatFileCommand,
   HashObjectCommand,
   AddCommand,
+  LSTreeCommand,
 } = require("./git/commands");
 
 const gitClient = new GitClient();
@@ -24,6 +25,9 @@ switch (command) {
     break;
   case "add":
     handleAddCommand();
+    break;
+  case "ls-tree":
+    handleLsTreeCommand();
     break;
   default:
     throw new Error(`Unknown command ${command}`);
@@ -74,3 +78,19 @@ function handleAddCommand() {
   const command = new AddCommand(filePaths);
   gitClient.run(command);
 }
+
+function handleLsTreeCommand() {
+  let flag = process.argv[3];
+  let sha = process.argv[4];
+
+  if(!sha && flag=='--name-only'){
+    return;
+  }
+  if(!sha) {
+    sha = flag;
+    flag = null;
+  }
+
+  const command = new LSTreeCommand(flag, sha);
+  gitClient.run(command);
+} 
