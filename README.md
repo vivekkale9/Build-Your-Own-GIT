@@ -20,7 +20,7 @@ Git implements several fundamental Git commands using Node.js, giving insights i
 
 ```bash
 # Clone the repository
-git clone [https://github.com/vivekkale9/Build-Your-Own-GIT]
+git clone [https://github.com/vivekkale9/Build-Your-Own-GIT.git](https://github.com/vivekkale9/Build-Your-Own-GIT)
 
 # Install dependencies (if any)
 npm install
