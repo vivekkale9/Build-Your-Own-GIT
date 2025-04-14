@@ -8,6 +8,7 @@ const {
   AddCommand,
   LSTreeCommand,
   CommitCommand,
+  PushCommand,
 } = require("./git/commands");
 
 const gitClient = new GitClient();
@@ -32,6 +33,9 @@ switch (command) {
     break;
   case "commit":
     handleCommitCommand();
+    break;
+  case "push":
+    handlePushCommand();
     break;
   default:
     throw new Error(`Unknown command ${command}`);
@@ -171,5 +175,13 @@ function handleCommitCommand() {
   
   const options = { amend, allowEmpty };
   const command = new CommitCommand(message, options);
+  gitClient.run(command);
+}
+
+function handlePushCommand() {
+  const remoteName = process.argv[3] || "origin";
+  const refspec = process.argv[4] || "";
+  
+  const command = new PushCommand(remoteName, refspec);
   gitClient.run(command);
 }
