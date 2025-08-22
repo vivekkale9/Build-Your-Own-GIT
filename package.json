@@ -1,0 +1,32 @@
+{
+  "name": "vi-vcs",
+  "version": "1.0.1",
+  "description": "Custom version control system in JavaScript with Git-style commands (init, add, commit, ls-tree, cat-file, push).",
+  "keywords": [
+    "vcs",
+    "version",
+    "control",
+    "git",
+    "custom",
+    "git",
+    "github"
+  ],
+  "homepage": "https://github.com/vivekkale9/Build-Your-Own-GIT#readme",
+  "bugs": {
+    "url": "https://github.com/vivekkale9/Build-Your-Own-GIT/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vivekkale9/Build-Your-Own-GIT.git"
+  },
+  "license": "ISC",
+  "author": "Vivek Kale / vivekskale03@gmail.com",
+  "type": "commonjs",
+  "main": "index.js",
+  "bin": {
+    "vi-vcs": "./main.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}
